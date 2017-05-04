@@ -79,6 +79,7 @@ public class JavaFXFractal extends Application {
         canvas.setOnMouseClicked((MouseEvent event) -> {
             lastMouseX = (int) event.getX();
             lastMouseY = (int) event.getY();
+            drawFractal();
         });
         BorderPane borderPane = new BorderPane();
         borderPane.setTop(myMenuBar());
@@ -93,6 +94,7 @@ public class JavaFXFractal extends Application {
 //        primaryStage.setFullScreen(true);
         primaryStage.hide();
         primaryStage.show();
+        drawFractal();
 
     }
 
@@ -137,9 +139,12 @@ public class JavaFXFractal extends Application {
                     ++i;
                 }
 
-                int blue = i > 255 ? i % 255 : 100;
-                int green = i <= 255 ? i : 50;
-                int red = i <= 255 ? i : 50;
+//                int blue = i > 255 ? i % 255 : 100;
+//                int green = i <= 255 ? i : 50;
+//                int red = i <= 255 ? i : 50;
+                int red = 0, green = 0, blue = 0;
+                red = green = blue = i % 50 * 4 + 55;
+
                 if (i == maxLoops) {
                     g.setFill(Color.BLACK);
                 } else {
@@ -221,7 +226,7 @@ public class JavaFXFractal extends Application {
         zoomIn.setAccelerator(KeyCombination.keyCombination("Ctrl+I"));
         zoomIn.setOnAction(e -> {
             magnification *= 2;
-//            drawFractal();
+            drawFractal();
         });
         drawMenu.getItems().add(zoomIn);
 
@@ -229,7 +234,7 @@ public class JavaFXFractal extends Application {
         zoomOut.setAccelerator(KeyCombination.keyCombination("Ctrl+O"));
         zoomOut.setOnAction(e -> {
             magnification = (magnification < 2) ? 1 : (magnification /= 2);
-//            drawFractal();
+            drawFractal();
         });
         drawMenu.getItems().add(zoomOut);
 
@@ -237,15 +242,20 @@ public class JavaFXFractal extends Application {
          * *********************************************************************
          * Options Menu Section
          */
-        MenuItem randomize = new MenuItem("Randomize Cells");
-        randomize.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
-//        randomize.setOnAction(e -> fractalPane.randomizeCells());
-        optionsMenu.getItems().add(randomize);
+        MenuItem maxLoops = new MenuItem("Maximum Loops");
+        maxLoops.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
+       maxLoops.setOnAction(e -> { 
+           //TODO add dialog box to get max loops
+       
+       });
+        optionsMenu.getItems().add(maxLoops);
 
         CheckMenuItem color = new CheckMenuItem("Color Cells");
         color.setAccelerator(KeyCombination.keyCombination("Ctrl+C"));
 //        color.setOnAction(e -> fractalPane.setShowColors(color.isSelected()));
         optionsMenu.getItems().add(color);
+        
+
 
         /**
          * *********************************************************************
@@ -256,7 +266,7 @@ public class JavaFXFractal extends Application {
             String message = "Fractal\n";
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
             alert.setTitle("About");
-            alert.setHeaderText("JavaFXFractal v1.0 by John Phillips");
+            alert.setHeaderText("JavaFXFractal v1.0 by Jeremiah Zellers");
             alert.showAndWait();
         });
         helpMenu.getItems().add(about);
