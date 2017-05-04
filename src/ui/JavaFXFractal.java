@@ -245,7 +245,7 @@ public class JavaFXFractal extends Application {
         MenuItem maxLoops = new MenuItem("Maximum Loops");
         maxLoops.setAccelerator(KeyCombination.keyCombination("Ctrl+R"));
        maxLoops.setOnAction(e -> { 
-           //TODO add dialog box to get max loops
+           //TODO TOODO add dialog box to get max loops
        
        });
         optionsMenu.getItems().add(maxLoops);
